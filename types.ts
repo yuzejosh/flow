@@ -1,12 +1,12 @@
 interface Group {
   users: User[]
   leader: User
-  arrangement_period: TimeSet[] // There can only exist one 'arrangement period' at a time
+  arrangement_period: TimeSet // There can only exist one 'arrangement period' at a time
   time_sets: TimeSet[]
   meetings: Meeting[]
 }
 
-interface User {
+interface User{
   username: string
   email: string
 }
