@@ -2,10 +2,7 @@
 
 export default function Home() {
   function testCall() {
-    fetch('/api/getUser?rar=wowh', {
-      method: 'POST',
-      body: JSON.stringify({ shit: 'hole' }),
-    })
+    fetch('/api/getUser?username=john')
       .then((res) => console.log(res.json()))
       .catch((error) => console.log(error))
   }
