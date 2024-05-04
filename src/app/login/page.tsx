@@ -1,4 +1,6 @@
 const LoginPage = () => {
+    console.log(process.env.AUTH0_SECRET);
+
 
     return (
         <div>
