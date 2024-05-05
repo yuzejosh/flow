@@ -1,15 +1,16 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { connectDB } from '@/features/mongodb/mongodbconnection'
-import { Group, User } from '@/features/mongodb/models'
+import { MeetingDocument, Meeting, Group } from '@/features/mongodb/models'
 import { checkParams } from '../apihelpers'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req.body)
   const info = JSON.parse(req.body)
-  const param_res = checkParams(['leaderId'], info)
+
+  // checks for required parameters
+  const param_res = checkParams(['groupId', 'times'], info)
   if (param_res.statusCode === 400) {
     res.status(param_res.statusCode).json(param_res.error)
     return
@@ -18,15 +19,13 @@ export default async function handler(
   // connect to DB
   await connectDB()
 
-  // get user
-  const leader = await User.findById(info.leaderId)
+  // overwriting timeset
+  Group.findByIdAndUpdate(
+    info.groupId,
+    { $set: { arrangement_period: { user: null, times: info.times } } },
+    { new: true }
+  )
 
-  console.log('LEADER', leader)
-
-  const group_info = {
-    leader: leader,
-  }
-  const newGroup = new Group(group_info)
-  await newGroup.save()
-  res.status(200).json(newGroup)
+  // return timeset
+  res.status(200).json(info.times)
 }

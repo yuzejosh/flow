@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { connectDB } from '@/features/mongodb/mongodbconnection'
 import { User } from '@/features/mongodb/models'
+import { checkParams } from '../apihelpers'
 
 // Handler function for the /api/users endpoint
 export default async function handler(
@@ -10,10 +11,9 @@ export default async function handler(
   const user_info = req.query
 
   // needs query parameters
-  if (!('username' in user_info)) {
-    res.status(400).json({
-      error: "'username' query parameter missing",
-    })
+  const param_res = checkParams(['username'], user_info)
+  if (param_res.statusCode === 400) {
+    res.status(param_res.statusCode).json(param_res.error)
     return
   }
 

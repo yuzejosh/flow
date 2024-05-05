@@ -7,9 +7,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req.body)
   const info = JSON.parse(req.body)
-  const param_res = checkParams(['leaderId'], info)
+  const param_res = checkParams(['userId', 'groupId'], info)
   if (param_res.statusCode === 400) {
     res.status(param_res.statusCode).json(param_res.error)
     return
@@ -18,15 +17,12 @@ export default async function handler(
   // connect to DB
   await connectDB()
 
-  // get user
-  const leader = await User.findById(info.leaderId)
+  // get the user
+  const user = await User.findById(info.userId)
 
-  console.log('LEADER', leader)
+  // add new user to group
+  const group = await Group.findByIdAndUpdate(info.groupId, { $push: { users: user} }, { new: true })
 
-  const group_info = {
-    leader: leader,
-  }
-  const newGroup = new Group(group_info)
-  await newGroup.save()
-  res.status(200).json(newGroup)
+  // return all users
+  res.status(200).json(group.users)
 }
