@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'PressStart2P';
+    src: url('/PressStart2P.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.press-start {
+    font-family: 'PressStart2P';
+}
+
+body {
+    font-family: Helvetica;
+}
+
+p {
+  font-family: Helvetica;
+  font-size: 20px;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.animated-gradient {
+  background: radial-gradient(circle, var(--from-color), var(--to-color));
+  background-size: 200% 200%;
+  animation: gradientAnimation 12s ease infinite;
+}
+
+:root {
+  --from-color: rgb(71, 247, 229);
+  --to-color: rgb(255, 255, 87);
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
