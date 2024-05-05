@@ -22,6 +22,15 @@ interface Items {
   content: string
 }
 
+interface ColInfo {
+  
+    id: number,
+    colour: string,
+    title: string,
+    cards: Items[],
+
+}
+
 const LoginPage = () => {
   const [cardid, setCardid] = useState(0)
 
@@ -70,7 +79,7 @@ const LoginPage = () => {
     )
   }
 
-  const [columns, setColumns] = useState([
+  const [columns, setColumns] = useState<ColInfo[]>([
     {
       id: 1,
       colour: '#D9D9D9',
