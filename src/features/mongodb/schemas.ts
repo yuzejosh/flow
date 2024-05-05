@@ -20,11 +20,17 @@ const groupSchema = new mongoose.Schema<Group & Document>(
 
 const meetingSchema = new mongoose.Schema<Meeting & Document>(
   {
-    meetingPeriod: { type: Schema.Types.ObjectId, ref: 'Period' },
+    meetingPeriod: {
+      type: Schema.Types.ObjectId,
+      trim: false,
+      cast: false,
+      default: null
+    },
     meetingDocuments: [{ type: Schema.Types.ObjectId, ref: 'MeetingDocument' }],
     attendees: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    group: { type: Schema.Types.ObjectId, ref: 'Group' },
   },
-  { strict: true }
+  { strict: false }
 )
 
 const meetingDocumentSchema = new mongoose.Schema<MeetingDocument & Document>(

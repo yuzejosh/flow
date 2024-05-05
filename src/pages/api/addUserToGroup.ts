@@ -18,7 +18,7 @@ export default async function handler(
   await connectDB()
 
   // get the user
-  const user = User.findById(info.userId)
+  const user = await User.findById(info.userId)
 
   // add new user to group
   const group = await Group.findByIdAndUpdate(info.groupId, { $push: { users: user} }, { new: true })

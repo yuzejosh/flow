@@ -10,17 +10,27 @@ export default async function handler(
   const meeting_info = JSON.parse(req.body)
 
   // checks for required parameters
-  const param_res = checkParams(['meeting_id', 'period', 'attendees'], meeting_info)
+  const param_res = checkParams(['groupId', 'time'], meeting_info)
   if (param_res.statusCode === 400) {
     res.status(param_res.statusCode).json(param_res.error)
     return
   }
 
-  
-
+  // connect to DB
   await connectDB()
 
-  const newMeeting = new Meeting(meeting_info)
-  await newMeeting.save()
+  // find the group
+  const group = await Group.findById(meeting_info.groupId)
+
+  console.log(meeting_info)
+  const newMeeting = new Meeting({
+    meetingPeriod: {
+        startDatetime: new Date(meeting_info.time.startDatetime),
+        endDatetime: new Date(meeting_info.time.endDatetime)
+    },
+    group: group
+  })
+  console.log(newMeeting)
+//   await newMeeting.save()
   res.status(200).json(newMeeting)
 }

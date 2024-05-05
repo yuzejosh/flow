@@ -10,7 +10,7 @@ export default async function handler(
   const info = JSON.parse(req.body)
 
   // checks for required parameters
-  const param_res = checkParams(['groupId', 'timeset'], info)
+  const param_res = checkParams(['groupId', 'times'], info)
   if (param_res.statusCode === 400) {
     res.status(param_res.statusCode).json(param_res.error)
     return
@@ -22,10 +22,10 @@ export default async function handler(
   // overwriting timeset
   Group.findByIdAndUpdate(
     info.groupId,
-    { $set: { arrangement_period: info.timeset } },
+    { $set: { arrangement_period: { user: null, times: info.times } } },
     { new: true }
   )
 
   // return timeset
-  res.status(200).json(info.timeset)
+  res.status(200).json(info.times)
 }

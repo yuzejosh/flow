@@ -6,7 +6,7 @@ interface Group {
   meetings: Meeting[]
 }
 
-interface User{
+interface User {
   username: string
   email: string
 }
@@ -25,8 +25,8 @@ interface Meeting {
   meetingPeriod: Period
   meetingDocuments: MeetingDocument[]
   attendees: User[]
+  group: Group
 }
-
 
 // For meeting documents
 
