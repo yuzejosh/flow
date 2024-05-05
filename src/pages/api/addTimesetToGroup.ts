@@ -19,7 +19,5 @@ export default async function handler(
   const group = await Group.findByIdAndUpdate(timeset_info.groupId, { $push: { time_sets: timeset_info.timeset } }, { new: true })
 
 
-  // const newGroup = new Group(group_info)
-  // await newGroup.save()
-  res.status(200).json(group)
+  res.status(200).json(group.time_sets)
 }
