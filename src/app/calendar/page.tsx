@@ -52,17 +52,12 @@ const CalendarPage = () => {
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-xl font-bold my-4">Google Calendar Events</h1>
-      <button onClick={authenticateGoogle} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Connect Google Calendar
+      <button onClick={authenticateGoogle} className="bg-[#B9F2FFB2] hover:bg-blue-700 text-black press-start py-2 px-4 rounded">
+        Sync Google Calendar
       </button>
-      <button onClick={() => {
-        const tokens = searchParams.get('tokens');
-        if (tokens) {
-            fetchEvents(tokens);
-        }
-        }} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+      <button onClick={() => {}} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
         Refresh Events
-    </button>
+      </button>
 
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
