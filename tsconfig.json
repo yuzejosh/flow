@@ -12,6 +12,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "typeRoots": ["./node_modules/@types", "./typings"],
+    "types": ["react-datepicker"],
     "plugins": [
       {
         "name": "next"
