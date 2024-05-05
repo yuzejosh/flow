@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { connectDB } from '@/features/mongodb/mongodbconnection'
 import { User } from '@/features/mongodb/models'
-import { checkParams } from '../apihelpers'
+import { checkParams } from '../../app/lib/apihelpers'
 
 // Handler function for the /api/users endpoint
 export default async function handler(
